@@ -1,0 +1,300 @@
+{% extends 'layout.html' %}
+{% block body %}
+<script src="static/js/validaciones.js"></script>
+
+<div class="row">
+    <div class="col-md-5">
+        {% with messages = get_flashed_messages() %} 
+        {% if messages%} {% for message
+        in messages %}
+
+        <!--alertas-->
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{message}}
+            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor%}
+        {% endif%}
+        {% endwith %}
+        
+        <!--Para cambiar las tablas-->
+        <div class="col-md-7">
+            <form method="POST" action="{{ url_for('cambiar_tabla') }}">
+                <select name="tabla">
+                    <option value="Paciente" {% if tabla == 'Paciente' %}selected{% endif %}>Tabla Paciente</option>
+                    <option value="Medico" {% if tabla == 'Medico' %}selected{% endif %}>Tabla Medico</option>
+                    <option value="Cita" {% if tabla == 'Cita' %}selected{% endif %}>Tabla Cita</option>
+                    <option value="Tratamiento" {% if tabla == 'Tratamiento' %}selected{% endif %}>Tabla Tratamiento</option>
+                </select>
+                <button class="btn btn-success btn-block" type="submit">Cambiar Tabla</button>
+            </form>          
+        </div>
+
+        <br><br>
+        
+        <!--Para ingresar datos en cualquier tabla-->
+        <!--TABLA PACIENTE-->
+        {% if tabla == 'Paciente' %}
+        <div class="card card-body">
+            <form action="/add_contactp" method="POST">
+                <input type="hidden" name="tabla" value="{{tabla}}">
+                <div class="form-group">
+                    <input type="text" name="nombre" placeholder="nombre" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="apellidop" placeholder="apellidop" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="apellidom" placeholder="apellidom" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="dni" placeholder="DNI" class="form-control" oninput="valdni(this)" maxlength="8"/>
+                    <small id="dniHelpBlock" class="form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label for="genero">Género</label>
+                    <select name="genero" class="form-control">
+                        <option value="" selected disabled>Elige tu género</option>
+                        <option value="F">F</option>
+                        <option value="M">M</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="telef" placeholder="Celular" class="form-control" oninput="valtelef(this)" maxlength="9"/>
+                    <small id="telefonoHelpBlock" class="form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label for="genero">Fecha de Nacimiento</label>
+                    <input type="date" name="fnac" placeholder="fnac" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="email" placeholder="email" class="form-control"/>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+
+        <!--TABLA MEDICO-->
+        {% if tabla == 'Medico' %}
+        <div class="card card-body">
+            <form action="/add_contactm" method="POST">
+                <input type="hidden" name="tabla" value="{{tabla}}">
+                <div class="form-group">
+                    <input type="text" name="nombre" placeholder="nombre" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="apellidop" placeholder="apellidop" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="apellidom" placeholder="apellidom" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="dni" placeholder="DNI" class="form-control" oninput="valdni(this)" maxlength="8"/>
+                    <small id="dniHelpBlock" class="form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label for="genero">Género</label>
+                    <select name="genero" class="form-control">
+                        <option value="" selected disabled>Elige tu género</option>
+                        <option value="F">F</option>
+                        <option value="M">M</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="email" placeholder="email" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="genero">Fecha de Nacimiento</label>
+                    <input type="date" name="fnac" placeholder="fnac" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="cole" placeholder="cole" class="form-control" oninput="valcole(this)" maxlength="6"/>
+                    <small id="colegioHelpBlock" class="form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="esp" placeholder="esp" class="form-control"/>
+                </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Save</button>
+            </div>
+        </div>
+        {% endif %} 
+
+        <!--TABLA CITA-->
+        {% if tabla == 'Cita' %}
+        <div class="card card-body">
+            <form action="/add_contactc" method="POST">
+                <input type="hidden" name="tabla" value="{{tabla}}">
+                <div class="form-group">
+                    <label for="genero">Fecha de Cita</label>
+                    <input type="date" name="fecha" placeholder="fecha" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="genero">Hora de Cita</label>
+                    <input type="time" name="hora" placeholder="hora" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="nota" placeholder="nota" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="idPaciente" placeholder="idPaciente" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="idMedico" placeholder="idMedico" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
+            </form>    
+        </div>
+        {% endif %}
+
+        <!--TABLA TRATAMIENTO-->
+        {% if tabla == 'Tratamiento' %}
+        <div class="card card-body">
+            <form action="/add_contactT" method="POST">
+                <div class="form-group">
+                    <label for="genero">Fecha de inicio</label>
+                    <input type="date" name="inicio" placeholder="inicio" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="genero">Fecha de fin</label>
+                    <input type="date" name="fin" placeholder="fin" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="medicamento" placeholder="medicamento" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="dosis" placeholder="dosis" class="form-control" onblur="validateDosis()"/>
+                    <small id="dosis-error" class="form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="frecuencia" placeholder="frecuencia" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="idCita" placeholder="idCita" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+
+        <!--MOSTRAR TABLA DE LA BD-->
+        <br><br><br>
+        <div class="col-md-7">
+            <table class="table table-striped table-bordered bg-white table-hover">
+                <thead>
+                    <tr>
+                        {% if tabla == 'Paciente' %} 
+                            <td>id</td>
+                            <td>nombre</td>
+                            <td>apellidp</td>
+                            <td>apellidom</td>
+                            <td>dni</td>
+                            <td>genero</td>
+                            <td>telef</td>
+                            <td>fnac</td>
+                            <td>email</td>
+                        {% endif %}
+
+                        {% if tabla == 'Medico' %}
+                            <td>id</td>
+                            <td>nombre</td>
+                            <td>apellidp</td>
+                            <td>apellidom</td>
+                            <td>dni</td>
+                            <td>genero</td>
+                            <td>email</td>
+                            <td>fnac</td>
+                            <td>cole</td>
+                            <td>esp</td>
+                        {% endif %}   
+                        {% if tabla == 'Cita' %}
+                            <td>id</td>
+                            <td>fecha</td>
+                            <td>hora</td>
+                            <td>nota</td>
+                            <td>idPaciente</td>
+                            <td>idMedico</td>
+                        {% endif %} 
+                        {% if tabla == 'Tratamiento' %}
+                            <td>id</td>
+                            <td>inicio</td>
+                            <td>fin</td>
+                            <td>medicamento</td>
+                            <td>dosis</td>
+                            <td>frecuencia</td>
+                            <td>idCita</td>
+                        {% endif %} 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contacts %}
+                    <tr>
+                        {% if tabla == 'Paciente' %}
+                            <td>{{ contact.0}}</td>
+                            <td>{{ contact.1}}</td>
+                            <td>{{ contact.2}}</td>
+                            <td>{{ contact.3}}</td>
+                            <td>{{ contact.4}}</td>
+                            <td>{{ contact.5}}</td>
+                            <td>{{ contact.6}}</td>
+                            <td>{{ contact.7}}</td>
+                            <td>{{ contact.8}}</td>
+
+                        {% endif %}
+
+                        {% if tabla == 'Medico' %}
+                            <td>{{ contact.0}}</td>
+                            <td>{{ contact.1}}</td>
+                            <td>{{ contact.2}}</td>
+                            <td>{{ contact.3}}</td>
+                            <td>{{ contact.4}}</td>
+                            <td>{{ contact.5}}</td>
+                            <td>{{ contact.6}}</td>
+                            <td>{{ contact.7}}</td>
+                            <td>{{ contact.8}}</td>
+                            <td>{{ contact.9}}</td>
+                        {% endif %}  
+                        
+                        {% if tabla == 'Cita' %}
+                            <td>{{ contact.0}}</td>
+                            <td>{{ contact.1}}</td>
+                            <td>{{ contact.2}}</td>
+                            <td>{{ contact.3}}</td>
+                            <td>{{ contact.4}}</td>
+                            <td>{{ contact.5}}</td>
+                        {% endif %} 
+
+                        {% if tabla == 'Tratamiento' %}
+                            <td>{{ contact.0}}</td>                            
+                            <td>{{ contact.1}}</td>
+                            <td>{{ contact.2}}</td>
+                            <td>{{ contact.3}}</td>
+                            <td>{{ contact.4}}</td>
+                            <td>{{ contact.5}}</td>
+                            <td>{{ contact.6}}</td>
+                        {% endif %}      
+                        <td>
+                            <a href="/edit/{{contact.0}}?tabla={{ tabla }}" class="btn btn-secondary">Edit</a>
+                            <a href="/delete/{{contact.0}}?tabla={{ tabla }}" class="btn btn-danger btn-delete">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>    
+    </div>
+    
+</div>
+
+{% endblock %}

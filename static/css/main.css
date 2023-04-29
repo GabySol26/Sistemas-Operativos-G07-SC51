@@ -1,0 +1,18 @@
+body {
+  background: linear-gradient(270deg, rgba(0, 71, 255, 0.56) 23.9%, #5BC4CB 64%); 
+  background: -webkit-linear-gradient(
+    to right,
+    #2C28F3,
+    #2980b9
+  );  
+}
+option {
+  background-color: #235956;
+  color: white;
+}
+button .seleccion {
+  background-color: bisque;
+  border-radius: 15px;
+  size: 13px;
+
+}

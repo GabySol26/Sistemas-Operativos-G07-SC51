@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+{% if tabla == 'Paciente' %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card card-body">
+            <form action="/updatep/{{contact.0}}" method="POST">
+                <div class="form-group">
+                        <input type="text" name="nombre" placeholder="nombre" value="{{ contact.1 }}" class="form-control">
+                        <input type="text" name="apellidop" placeholder="apellidop" value="{{ contact.2 }}" class="form-control">
+                        <input type="text" name="apellidom" placeholder="apellidom" value="{{ contact.3 }}" class="form-control">
+                        <input type="text" name="dni" placeholder="dni" value="{{ contact.4 }}" class="form-control">
+                        <input type="text" name="genero" placeholder="genero" value="{{ contact.5 }}" class="form-control">
+                        <input type="text" name="telef" placeholder="telef" value="{{ contact.6 }}" class="form-control">
+                        <input type="text" name="fnac" placeholder="fnac" value="{{ contact.7 }}" class="form-control">
+                        <input type="text" name="email" placeholder="email" value="{{ contact.8 }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if tabla == 'Medico' %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card card-body">
+            <form action="/updatem/{{contact.0}}" method="POST">
+                <div class="form-group">
+                        <input type="text" name="nombre" placeholder="nombre" value="{{ contact.1 }}" class="form-control">
+                        <input type="text" name="apellidop" placeholder="apellidop" value="{{ contact.2 }}" class="form-control">
+                        <input type="text" name="apellidom" placeholder="apellidom" value="{{ contact.3 }}" class="form-control">
+                        <input type="text" name="dni" placeholder="dni" value="{{ contact.4 }}" class="form-control">
+                        <input type="text" name="genero" placeholder="genero" value="{{ contact.5 }}" class="form-control">
+                        <input type="text" name="email" placeholder="email" value="{{ contact.6 }}" class="form-control">
+                        <input type="text" name="fnac" placeholder="fnac" value="{{ contact.7 }}" class="form-control">
+                        <input type="text" name="cole" placeholder="cole" value="{{ contact.8 }}" class="form-control">
+                        <input type="text" name="esp" placeholder="esp" value="{{ contact.9 }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if tabla == 'Cita' %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card card-body">
+            <form action="/updatec/{{contact.0}}" method="POST">
+                <div class="form-group">
+                        <input type="text" name="fecha" placeholder="fecha" value="{{ contact.1 }}" class="form-control">
+                        <input type="text" name="hora" placeholder="hora" value="{{ contact.2 }}" class="form-control">
+                        <input type="text" name="nota" placeholder="nota" value="{{ contact.3 }}" class="form-control">
+                        <input type="text" name="idPaciente" placeholder="idPaciente" value="{{ contact.4 }}" class="form-control">
+                        <input type="text" name="idMedico" placeholder="idMedico" value="{{ contact.5 }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if tabla == 'Tratamiento' %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card card-body">
+            <form action="/update/{{contact.0}}" method="POST">
+                <div class="form-group">
+                        <input type="text" name="inicio" placeholder="incio" value="{{ contact.1 }}" class="form-control">
+                        <input type="text" name="fin" placeholder="fin" value="{{ contact.2 }}" class="form-control">
+                        <input type="text" name="medicamento" placeholder="medicamento" value="{{ contact.3 }}" class="form-control">
+                        <input type="text" name="dosis" placeholder="dosis" value="{{ contact.4 }}" class="form-control">
+                        <input type="text" name="frecuencia" placeholder="frecuencia" value="{{ contact.5 }}" class="form-control">
+                        <input type="text" name="idCita" placeholder="idCita" value="{{ contact.6 }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
